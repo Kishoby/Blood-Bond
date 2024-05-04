@@ -41,6 +41,7 @@ import { useNavigation } from '@react-navigation/native';
          value={username} 
          setValue={setUsername}
          />
+         
          <Custominput  placeholder='Password' 
          value={password} 
          setValue={setPassword}
@@ -75,6 +76,7 @@ import { useNavigation } from '@react-navigation/native';
     margin: 20,
 
   },
+  
     logo: {
         width: '80%',
         maxWidth:300,

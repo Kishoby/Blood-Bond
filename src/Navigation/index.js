@@ -8,7 +8,13 @@ import SignUpScreen from '../Screens/SignUpScreen';
 import ConfirmEmailScreen from '../Screens/ConfirmEmailScreen/ConfirmEmailScreen';
 import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen';
 import NewPasswordScreen from '../Screens/NewPasswordScreen';
-import HomeScreen from '../Screens/HomeScreen/HomeScreen';
+import HomeScreen from '../Screens/HomeScreen';
+import CreateRequestScreen from '../Screens/CreateRequestScreen/CreateRequestScreen';
+import SearchScreen from '../Screens/SearchScreen';
+import DonationRequestScreen from '../Screens/DonationRequestScreen';
+import FindDonorsScreen from '../Screens/FindDonorsScreen';
+
+
 const Stack = createNativeStackNavigator();
 
 const Navigation= () => {
@@ -21,6 +27,12 @@ const Navigation= () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
         <Stack.Screen name="NewPassword" component={NewPasswordScreen}/>
         <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="DonationRequest" component={DonationRequestScreen}/>
+        <Stack.Screen name="Search" component={SearchScreen}/>
+        <Stack.Screen name="CreateRequest" component={CreateRequestScreen}/>
+        <Stack.Screen name="FindDonors" component={FindDonorsScreen}/>
+        
+        
       </Stack.Navigator>
       </NavigationContainer>
   );
