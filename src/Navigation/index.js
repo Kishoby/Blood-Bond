@@ -8,7 +8,7 @@ import SignUpScreen from '../Screens/SignUpScreen';
 import ConfirmEmailScreen from '../Screens/ConfirmEmailScreen/ConfirmEmailScreen';
 import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen';
 import NewPasswordScreen from '../Screens/NewPasswordScreen';
-import HomeScreen from '../Screens/HomeScreen';
+import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 const Stack = createNativeStackNavigator();
 
 const Navigation= () => {
