@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
 
   touchable: {
-    backgroundColor: '#c90016',
+    backgroundColor: 'gray',
     width: '48%',
     height: 100,
     justifyContent: 'center',
