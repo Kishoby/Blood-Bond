@@ -7,16 +7,17 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const CreateRequestScreen = () => {
- const [username, setUsername]=useState('');
- const[email,setEmail]=useState('');
- const [password, setPassword]=useState('');
- const[passwordRepeat,setPasswordRepeat]=useState('');
+  const [city, setCity]=useState('');
+  const[hospital,setHospital]=useState('');
+  const [bloodType, setbloodType]=useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [note, setNote] = useState('');
 
  const navigation = useNavigation();
 
 
  const onRegisterPressed= () => {
-   navigation.navigate('ConfirmEmail');
+   navigation.navigate('SuccessScreen');
  };
 
     return (
@@ -27,23 +28,35 @@ const CreateRequestScreen = () => {
            Create a Request
         </Text>
 
-        <Custominput placeholder='Username' 
-        value={username} 
-        setValue={setUsername}
+        <Custominput
+          placeholder='City' 
+          value={city} 
+          setValue={setCity}
+          icon="city-icon"
         />
-        <Custominput  placeholder='Email' 
-        value={email} 
-        setValue={setEmail}
+
+        <Custominput  
+        placeholder='Hospital' 
+        value={hospital} 
+        setValue={setHospital}
         />
-        <Custominput  placeholder='Password' 
-        value={password} 
-        setValue={setPassword}
-        secureTextEntry={true}
+
+        <Custominput  
+        placeholder='Blood Type' 
+        value={bloodType} 
+        setValue={setbloodType}
         />
-        <Custominput  placeholder='Confirm Password' 
-        value={passwordRepeat} 
-        setValue={setPasswordRepeat}
-        secureTextEntry={true}
+
+        <Custominput  
+        placeholder='Mobile' 
+        value={mobileNumber} 
+        setValue={setMobileNumber}
+        />
+
+        <Custominput  
+        placeholder='Add a Note' 
+        value={note} 
+        setValue={setNote}
         />
 
         <CustomButton text="Request" 
@@ -68,13 +81,7 @@ const styles = StyleSheet.create({
        color:'#6b0711',
        margin: 35,
      },
-     text:{
-       color: 'gray',
-       marginVertical:10,
-     },
-     link:{
-       color:'#FDB075',
-     },
+     
 
 });
 

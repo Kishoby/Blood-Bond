@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import SearchScreen from '../SearchScreen';
 import DonationRequestScreen from '../DonationRequestScreen';
 import FindDonorsScreen from '../FindDonorsScreen';
-import HomeImg from "../../../assets/images/bloodbg1.jpg"
+import HomeImg from "../../../assets/images/bloodbg1.jpg";
 
 
 const HomeScreen = () => {
@@ -29,8 +29,8 @@ const HomeScreen = () => {
   };
 
   const FindDonorsScreen = () => {
-    // Navigate to Search screen
-    navigation.navigate('Search');
+    // Navigate to Find Donors screen
+    navigation.navigate('FindDonors');
   };
 
 
@@ -38,7 +38,7 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Blood Bond</Text>
       
-      <Image source={HomeImg} alt=''/>
+      <Image source={HomeImg} style={styles.image} alt=''/>
 
 
       <View style={styles.touchableContainer}>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   
   image: {
     resizeMode: 'cover',
-    width: 200,
+    width: '100%',
     height: 300, 
   },
   header:{
