@@ -46,7 +46,7 @@ const HomeScreen = () => {
       <TouchableOpacity
         style={styles.touchable}
           onPress={DonationRequestScreen}>
-        <Text style={styles.buttonText}>Donation Request</Text>
+        <Text style={styles.buttonText}>Become a Donors</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    padding: 20,
+    padding: 25,
   },
 
   touchable: {
-    backgroundColor: 'gray',
+    backgroundColor: '#dc143c',
     width: '48%',
     height: 100,
     justifyContent: 'center',
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   bottomBar: {
     bottom: 1,
     width: '100%',
-    height: 50,
+    height: 70,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',

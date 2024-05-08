@@ -13,6 +13,7 @@ import CreateRequestScreen from '../Screens/CreateRequestScreen/CreateRequestScr
 import SearchScreen from '../Screens/SearchScreen';
 import DonationRequestScreen from '../Screens/DonationRequestScreen';
 import FindDonorsScreen from '../Screens/FindDonorsScreen';
+import SuccessRequestScreen from '../Screens/SuccessRequestScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +32,8 @@ const Navigation= () => {
         <Stack.Screen name="Search" component={SearchScreen}/>
         <Stack.Screen name="CreateRequest" component={CreateRequestScreen}/>
         <Stack.Screen name="FindDonors" component={FindDonorsScreen}/>
+        <Stack.Screen name="SuccessScreen" component={SuccessRequestScreen}/>
+
         
         
       </Stack.Navigator>
