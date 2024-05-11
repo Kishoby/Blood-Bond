@@ -10,10 +10,12 @@ import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen';
 import NewPasswordScreen from '../Screens/NewPasswordScreen';
 import HomeScreen from '../Screens/HomeScreen';
 import CreateRequestScreen from '../Screens/CreateRequestScreen/CreateRequestScreen';
-import SearchScreen from '../Screens/SearchScreen';
+import ProfileScreen from '../Screens/ProfileScreen';
 import DonationRequestScreen from '../Screens/DonationRequestScreen';
 import FindDonorsScreen from '../Screens/FindDonorsScreen';
 import SuccessRequestScreen from '../Screens/SuccessRequestScreen';
+import DonorDetailsScreen from '../Screens/DonorDetailsScreen/DonorDetailsScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -29,10 +31,11 @@ const Navigation= () => {
         <Stack.Screen name="NewPassword" component={NewPasswordScreen}/>
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="DonationRequest" component={DonationRequestScreen}/>
-        <Stack.Screen name="Search" component={SearchScreen}/>
+        <Stack.Screen name="Profile" component={ProfileScreen}/>
         <Stack.Screen name="CreateRequest" component={CreateRequestScreen}/>
         <Stack.Screen name="FindDonors" component={FindDonorsScreen}/>
         <Stack.Screen name="SuccessScreen" component={SuccessRequestScreen}/>
+        <Stack.Screen name="DonorDetailsScreen" component={DonorDetailsScreen}/>
 
         
         

@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Assuming you're using Expo for vector icons
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 const FindDonorsScreen = () => {
+  const navigation = useNavigation();
+
   const [searchText, setSearchText] = useState('');
   const [userList, setUserList] = useState([]);
 
   // Dummy data for user list
   const dummyUsers = [
-    { id: 1, name: 'John Doe', location: 'New York', bloodGroup: 'O+' },
-    { id: 2, name: 'Jane Smith', location: 'Los Angeles', bloodGroup: 'A-' },
-    { id: 3, name: 'Michael Johnson', location: 'Chicago', bloodGroup: 'B+', age: 28, weight: 80, lastDonationDate: '2024-02-10' },
-    { id: 4, name: 'Emily Brown', location: 'Houston', bloodGroup: 'AB-', age: 35, weight: 60, lastDonationDate: '2023-11-05' },
-    { id: 5, name: 'William Davis', location: 'Miami', bloodGroup: 'O-', age: 40, weight: 75, lastDonationDate: '2024-03-18' },
-    { id: 6, name: 'Sarah Wilson', location: 'Seattle', bloodGroup: 'A+', age: 27, weight: 68, lastDonationDate: '2024-04-05' },
-    { id: 7, name: 'Christopher Lee', location: 'San Francisco', bloodGroup: 'B-', age: 32, weight: 72, lastDonationDate: '2023-09-28' },
-    { id: 8, name: 'Jessica Martinez', location: 'Dallas', bloodGroup: 'AB+', age: 29, weight: 67, lastDonationDate: '2024-02-28' },
-    { id: 9, name: 'Daniel Taylor', location: 'Atlanta', bloodGroup: 'A-', age: 31, weight: 75, lastDonationDate: '2024-03-10' },
-    { id: 10, name: 'Amanda White', location: 'Boston', bloodGroup: 'O+', age: 33, weight: 70, lastDonationDate: '2023-10-20' },
+    { id: 1, name: 'John Doe', location: 'New York', bloodGroup: 'O+', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile5.jpg') },
+    { id: 2, name: 'Jane Smith', location: 'Los Angeles', bloodGroup: 'A-', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile2.jpg') },
+    { id: 3, name: 'Michael Johnson', location: 'Chicago', bloodGroup: 'B+', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile3.jpg') },
+    { id: 4, name: 'Emily Brown', location: 'Houston', bloodGroup: 'AB-', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile4.jpg') },
+    { id: 5, name: 'William Davis', location: 'Miami', bloodGroup: 'O-', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile6.jpg') },
+    { id: 6, name: 'Sarah Wilson', location: 'Seattle', bloodGroup: 'A+', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile6.jpg') },
+    { id: 7, name: 'Christopher Lee', location: 'San Francisco', bloodGroup: 'B-', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile7.jpg') },
+    { id: 8, name: 'Jessica Martinez', location: 'Dallas', bloodGroup: 'AB+', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile8.jpg')},
+    { id: 9, name: 'Daniel Taylor', location: 'Atlanta', bloodGroup: 'A-', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile2.jpg')},
+    { id: 10, name: 'Amanda White', location: 'Boston', bloodGroup: 'O+', lastDonatedDate: '2023-05-10',profileImage: require('../../../assets/images/profile4.jpg') },
     // Add more dummy users as needed
   ];
 
@@ -34,13 +37,14 @@ const FindDonorsScreen = () => {
 
   // Function to render each user item
   const renderUserItem = ({ item }) => (
-    <TouchableOpacity style={styles.userItem} onPress={() => navigation.navigate('ProfileScreen', { userId: item.id })}>
-      <View style={styles.userInfo}>  
-      <Text style={styles.userName}>{item.name}</Text>
-      <Text style={styles.userDetail}>Location: {item.location}</Text>
-      <Text style={styles.userDetail}>Blood Group: {item.bloodGroup}</Text>
+    <TouchableOpacity style={styles.userItem} onPress={() => navigation.navigate('DonorDetailsScreen', { user: item })}>
+      <View style={styles.userInfo}> 
+       
+        <Text style={styles.userName}>{item.name}</Text>
+        <Text style={styles.userDetail}>Location: {item.location}</Text>
+        <Text style={styles.userDetail}>Blood Group: {item.bloodGroup}</Text>
       </View>
-      <Ionicons name="person-circle-sharp" size={60} color="#6b0711" style={styles.userIcon} />
+      <Image source={item.profileImage} style={styles.profileImage} />
     </TouchableOpacity>
   );
 
@@ -124,13 +128,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
   },
-  userIcon: {
-    marginLeft: 10,
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
   },
-
-  
-  
-
   
 });
 

@@ -1,12 +1,8 @@
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Text, StyleSheet,Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, StyleSheet,Image, TouchableOpacity, View } from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CreateRequestScreen from '../CreateRequestScreen';
 import { useNavigation } from '@react-navigation/native';
-import SearchScreen from '../SearchScreen';
-import DonationRequestScreen from '../DonationRequestScreen';
-import FindDonorsScreen from '../FindDonorsScreen';
 import HomeImg from "../../../assets/images/bloodbg1.jpg";
 
 
@@ -18,9 +14,9 @@ const HomeScreen = () => {
     navigation.navigate('DonationRequest');
   };
 
-  const SearchScreen = () => {
+  const ProfileScreen = () => {
     // Navigate to Search screen
-    navigation.navigate('Search');
+    navigation.navigate('Profile');
   };
 
   const CreateRequestScreen = () => {
@@ -51,8 +47,8 @@ const HomeScreen = () => {
 
       <TouchableOpacity
         style={styles.touchable}
-        onPress={SearchScreen}>
-        <Text style={styles.buttonText}>Search</Text>
+        onPress={ProfileScreen}>
+        <Text style={styles.buttonText}>Profile</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
