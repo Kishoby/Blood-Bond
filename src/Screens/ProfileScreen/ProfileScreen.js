@@ -64,7 +64,7 @@ const ProfileScreen = () => {
               renderItem={({ item }) => <Text style={styles.list}>{item}</Text>}
               horizontal
             />
-            <Text style={styles.In}>Blood Type</Text>
+            <Text style={styles.In}>Blood  Type</Text>
         </View>
 
 
