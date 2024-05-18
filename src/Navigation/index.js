@@ -15,7 +15,7 @@ import DonationRequestScreen from '../Screens/DonationRequestScreen';
 import FindDonorsScreen from '../Screens/FindDonorsScreen';
 import SuccessRequestScreen from '../Screens/SuccessRequestScreen';
 import DonorDetailsScreen from '../Screens/DonorDetailsScreen/DonorDetailsScreen';
-
+import WeightQ1 from '../Screens/WeightScreen1/WeightQ1'
 
 
 const Stack = createNativeStackNavigator();
@@ -36,6 +36,8 @@ const Navigation= () => {
         <Stack.Screen name="FindDonors" component={FindDonorsScreen}/>
         <Stack.Screen name="SuccessScreen" component={SuccessRequestScreen}/>
         <Stack.Screen name="DonorDetailsScreen" component={DonorDetailsScreen}/>
+        <Stack.Screen name="WeightQ1" component={WeightQ1}/>
+        <Stack.Screen name="WeightQ2" component={SigninScreen}/>
 
         
         
