@@ -1,14 +1,22 @@
+import { PermissionsAndroid, Platform, Alert,TextInput } from 'react-native';
 import React,{useState} from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import profile from '../../../assets/images/profile6.jpg';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'react-native-image-picker';
+
 
 const ProfileScreen = () => {
 
   const navigation = useNavigation();
   const [isToggleOn, setIsToggleOn] = useState(false);
+  const [profileImage, setProfileImage] = useState(profile);
+  const [isEditing, setIsEditing] = useState(false);
+  const [userName, setUserName] = useState("John Doe");
+  const [location, setLocation] = useState("New York, USA");
+
 
   const SigninScreen = () => {
     // Navigate to Create Request screen
@@ -18,6 +26,51 @@ const ProfileScreen = () => {
   const handleToggle = () => {
     setIsToggleOn(prevState => !prevState);
   };
+
+  const requestPermissions = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        ]);
+
+        const allPermissionsGranted = Object.values(granted).every(
+          status => status === PermissionsAndroid.RESULTS.GRANTED
+        );
+
+        if (allPermissionsGranted) {
+          launchImagePicker();
+        } else {
+          Alert.alert('Permissions not granted');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    } else {
+      launchImagePicker();
+    }
+  };
+
+  const launchImagePicker = () => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
+      if (response.assets && response.assets.length > 0) {
+        setProfileImage({ uri: response.assets[0].uri });
+      }
+    });
+  };
+
+  const handleEditPress = () => {
+    setIsEditing(true);
+  };
+
+  const handleSavePress = () => {
+    setIsEditing(false);
+    // You can add additional logic here to save the updated user info, e.g., send it to a server.
+  };
+
+
 
   // Sample data for flat lists
   const bloodTypeData = ['AB+'];
@@ -29,29 +82,48 @@ const ProfileScreen = () => {
       {/* Header */}
       <Text style={styles.header}>Profile</Text>
 
-      <TouchableOpacity onPress={handleToggle}>
-        <Image source={profile} style={[styles.avatar, isToggleOn && styles.enlargedImage]}/> 
+      <TouchableOpacity onPress={requestPermissions}>
+        <Image source={profileImage} style={[styles.avatar, isToggleOn && styles.enlargedImage]}/> 
       </TouchableOpacity>
 
       {/* User name */}
-      <Text style={styles.userName}>John Doe</Text>
+      {isEditing ? (
+        <TextInput
+          style={styles.editableField}
+          value={userName}
+          onChangeText={setUserName}
+        />
+      ) : (
+        <Text style={styles.userName}>{userName}</Text>
+      )}
 
       {/* Location */}
       <View style={styles.locationContainer}>
         <Icon name="map-marker" size={20} color="red" />
-        <Text style={styles.location}>New York, USA</Text>
+        {isEditing ? (
+          <TextInput
+            style={styles.editableField}
+            value={location}
+            onChangeText={setLocation}
+          />
+        ) : (
+          <Text style={styles.location}>{location}</Text>
+        )}
       </View>
 
-      {/* Call Now and Request buttons */}
+      {/* Edit and Save buttons */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#008000' }]}>
-          <Icon name="phone" size={20} color="white" />
-          <Text style={styles.buttonText}>Call Now</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#a31a28' }]}>
-          <Icon name="rocket" size={20} color="white" />
-          <Text style={styles.buttonText}>Request</Text>
-        </TouchableOpacity>
+        {isEditing ? (
+          <TouchableOpacity style={styles.button} onPress={handleSavePress}>
+            <Icon name="save" size={20} color="blue" />
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={handleEditPress}>
+            <Icon name="edit" size={20} color="blue" />
+            <Text style={styles.buttonText}>Edit</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* Flat lists */}
@@ -120,6 +192,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
     color: '#a31a28',
+    padding:5,
   },
   avatar: {
     width: 100,
@@ -129,25 +202,42 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderColor:'white',
     borderWidth:3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   enlargedImage: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
   },
   userName: {
     fontSize: 30,
     marginBottom: 10,
     textAlign: 'center',
     fontWeight:'bold',
+    color:'black',
     textShadowColor: 'rgba(0, 0, 0, 0.2)', // Shadow color
     textShadowOffset: { width: 2, height: 2 }, // Shadow offset 
     textShadowRadius: 5, // Shadow radius
   },
+
+  editableField: {
+    fontSize: 20,
+    marginBottom: 10,
+    textAlign: 'center',
+    fontWeight: '400',
+    color: '#999',
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+  },
+
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent:'center',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   location: {
     marginLeft: 5,
@@ -162,12 +252,13 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 13,
+    padding: 10,
     paddingHorizontal:32,
+    borderRadius: 5,
     borderRadius: 5,
   },
   buttonText: {
-    color: 'white',
+    color: 'blue',
     marginLeft: 5,
   },
   flatListContainer: {
@@ -195,15 +286,7 @@ const styles = StyleSheet.create({
     fontSize:40,
     fontWeight:'400',
   },
-  listItem: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  listTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
+  
   availableContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -227,6 +310,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f8f8ff',
     padding:10,
+    borderRadius:10,
   },
   signOutText: {
     marginLeft: 5,
