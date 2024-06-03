@@ -8,6 +8,7 @@ const DonorDetailsScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      
 
       <View style={styles.details}>      
         <Text style={styles.header}>User Details</Text>
@@ -31,10 +32,6 @@ const DonorDetailsScreen = ({ route }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#008000' }]}>
-          <Icon name="phone" size={20} color="white" />
-          <Text style={styles.buttonText}>Call Now</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { backgroundColor: '#a31a28' }]}>
           <Icon name="rocket" size={20} color="white" />
           <Text style={styles.buttonText}>Request</Text>
@@ -91,19 +88,23 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     marginBottom: 40,
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 13,
-    paddingHorizontal:32,
-    borderRadius: 5,
+    paddingBottom:5,
+    paddingTop:8,
+    paddingHorizontal:50,
+    borderRadius: 8,
+    elevation:2,
   },
   buttonText: {
     color: 'white',
     marginLeft: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
