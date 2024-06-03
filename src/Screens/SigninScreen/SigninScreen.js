@@ -1,11 +1,13 @@
- import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
+ import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView,Alert } from 'react-native';
  import React, {useState} from 'react';
  import Logo from '../../../assets/images/BloodBond.png';
  import Custominput from '../../Components/Custominput';
  import CustomButton from '../../Components/CustomButton';
 import SocialSignInButtons from '../../Components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
-
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import firebase from "@react-native-firebase/firestore"
 
  
  const SigninScreen = () => {
@@ -15,17 +17,32 @@ import { useNavigation } from '@react-navigation/native';
   const {height}= useWindowDimensions();
   const navigation= useNavigation();
  
-  const onSignInPressed= () => {
-    //validate user
-    navigation.navigate('Home');
+  const onSignInPressed = () => {
+    // Validate user credentials
+    auth()
+      .signInWithEmailAndPassword(username, password)
+      .then(() => {
+        // If sign-in is successful, navigate to the Home screen
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        // Handle sign-in errors
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          Alert.alert('Invalid Credentials', 'The username or password is incorrect.');
+        } else {
+          Alert.alert('Error', error.message);
+        }
+      });
   };
+
+  
   const onForgotPasswordPressed= () => {
    navigation.navigate('ForgotPassword');
 
   };
  
-  const onSignUpPress= () => {
-    navigation.navigate('SignUp');
+  const onSignUpPress = () => {
+        navigation.navigate('SignUp');
   };
      return (
       <ScrollView showsVerticalScrollIndicator={false}>

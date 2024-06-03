@@ -2,6 +2,8 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Linking from 'expo-linking';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 import SigninScreen from '../Screens/SigninScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
@@ -20,6 +22,17 @@ import WeightQ1 from '../Screens/WeightScreen1/WeightQ1'
 
 const Stack = createNativeStackNavigator();
 
+const handleDynamicLink = link => {
+  if (link.url) {
+    const url = new URL(link.url);
+    const oobCode = url.searchParams.get('oobCode');
+    const mode = url.searchParams.get('mode');
+
+    if (mode === 'resetPassword' && oobCode) {
+      navigation.navigate('NewPassword', { oobCode });
+    }
+  }
+};
 const Navigation= () => {
   return (
     <NavigationContainer>
@@ -45,5 +58,6 @@ const Navigation= () => {
       </NavigationContainer>
   );
 };
+
 
 export default Navigation;

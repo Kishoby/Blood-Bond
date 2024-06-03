@@ -1,9 +1,10 @@
- import { View, Text, StyleSheet, ScrollView } from 'react-native';
+ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
  import React, {useState} from 'react';
  import Custominput from '../../Components/Custominput';
  import CustomButton from '../../Components/CustomButton';
 import SocialSignInButtons from '../../Components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 
  
@@ -13,8 +14,14 @@ import { useNavigation } from '@react-navigation/native';
   const navigation=useNavigation();
  
  
-  const onSendPressed= () => {
-    navigation.navigate('NewPassword');
+  const onSendPressed = async () => {
+    try {
+      await auth().sendPasswordResetEmail(username);
+      Alert.alert("Success", "Password reset email sent!");
+      navigation.navigate('SignIn');
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
   };
  
   

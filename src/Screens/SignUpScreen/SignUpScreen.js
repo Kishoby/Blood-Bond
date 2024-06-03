@@ -1,10 +1,10 @@
- import { View, Text, StyleSheet, ScrollView } from 'react-native';
+ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
  import React, {useState} from 'react';
  import Custominput from '../../Components/Custominput';
  import CustomButton from '../../Components/CustomButton';
 import SocialSignInButtons from '../../Components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
-
+import auth from '@react-native-firebase/auth';
 
  
  const SignUpScreen = () => {
@@ -13,12 +13,30 @@ import { useNavigation } from '@react-navigation/native';
   const [password, setPassword]=useState('');
   const[passwordRepeat,setPasswordRepeat]=useState('');
 
+
   const navigation = useNavigation();
  
  
-  const onRegisterPressed= () => {
-    navigation.navigate('ConfirmEmail');
+  const onRegisterPressed = () => {
+    if (password !== passwordRepeat) {
+      Alert.alert('Error', 'Passwords do not match.');
+      return;
+    }
+
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        user.sendEmailVerification().then(() => {
+          Alert.alert('Email Sent', 'A verification email has been sent to your email address.');
+          navigation.navigate('ConfirmEmail');
+        });
+      })
+      .catch(error => {
+        Alert.alert('Error', error.message);
+      });
   };
+
  
   
   const onSignInPress= () => {
